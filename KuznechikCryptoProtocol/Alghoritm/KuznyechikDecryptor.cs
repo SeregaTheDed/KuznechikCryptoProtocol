@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace KuznechikCryptoProtocol.alghoritm
 {
-    internal class KuznyechikEnDecryptor
+    internal class KuznyechikDecryptor
     {
-
+        
     }
 }
