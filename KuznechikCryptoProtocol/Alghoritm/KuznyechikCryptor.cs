@@ -20,6 +20,7 @@
                 NumOfBlocks = (file.Length / 16) + 1;
                 NumberOfNull = NumOfBlocks * 16 - file.Length;
                 Array.Resize(ref OriginText, OriginText.Length + NumberOfNull);
+                Array.Resize(ref encrText, OriginText.Length + NumberOfNull);
                 if (NumberOfNull == 1) 
                 { 
                     OriginText[OriginText.Length - 1] = 0x80; 

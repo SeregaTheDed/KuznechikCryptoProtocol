@@ -18,6 +18,7 @@ namespace KuznechikCryptoProtocol
         private const string encryptedBigFileName = "EncryptedBigFile";
         private const string decryptedBigFileName = "DecryptedBigFile.mp4";
         private const string resultPdfFileName = "resultPDF.pdf";
+        private const string GOST_KEY = "8899aabbccddeeff0011223344556677fedcba98765432100123456789abcdef";
         
 
         private static void Task1()
@@ -41,8 +42,7 @@ namespace KuznechikCryptoProtocol
 
         private static void Task2()
         {
-            string keyString = File.ReadAllText(keyFilePath);
-            byte[] key = Convert.FromHexString(keyString);
+            byte[] key = Convert.FromHexString(GOST_KEY);
 
             double fileSize = new FileInfo(bigFileFilePath).Length;
             double fileSizeMb = Math.Round(fileSize / 1024 / 1024, 2);
@@ -53,8 +53,10 @@ namespace KuznechikCryptoProtocol
             DateTime start1 = DateTime.Now;
             var encriptedData = kuznyechikCryptor.Encript(File.ReadAllBytes(bigFileFilePath), key);
             DateTime end1 = DateTime.Now;
-            Console.WriteLine($"Время начала шифрования: {start1}. Время начала шифрования: {end1}. " +
-                $"Общее время: {(end1-start1).TotalSeconds} сек. Скорость: {fileSizeMb / (end1 - start1).TotalSeconds} Мб/сек");
+            Console.WriteLine($"Время начала шифрования: {start1}. \n" +
+                $"Время начала шифрования: {end1}. \n" +
+                $"Общее время: {(end1-start1).TotalSeconds} сек. \n" +
+                $"Скорость: {fileSizeMb / (end1 - start1).TotalSeconds} Мб/сек\n");
             using (FileStream fileStream = new FileStream(encryptedBigFileName, FileMode.OpenOrCreate))
             {
                 fileStream.Write(encriptedData);
@@ -80,7 +82,8 @@ namespace KuznechikCryptoProtocol
             while (selectedItem != "3")
             {
                 PrintMenu();
-                selectedItem = Console.ReadLine();
+                //selectedItem = Console.ReadLine();
+                selectedItem = "2";
                 try 
                 {
                     switch (selectedItem)
@@ -113,7 +116,7 @@ namespace KuznechikCryptoProtocol
             Console.Clear();
             Console.WriteLine("Выберите пункт меню:");
             Console.WriteLine("1. Расшифровать данные (файл Data/data.txt) по ключу (файл Data/key.txt)");
-            Console.WriteLine("2. Зашифровать файл Data/BigFile.mp4 обычным методом и быстрым по ключу (файл Data/key.txt), вывести статистику");
+            Console.WriteLine("2. Зашифровать файл Data/BigFile.mp4 обычным методом и быстрым по ключу из ГОСТ, вывести статистику");
             Console.WriteLine("3. Выход");
             Console.WriteLine("---------------------------------");
             Console.WriteLine("Все файлы можно подменять на горячую(во время выбора пункта меню).");
