@@ -3,8 +3,13 @@
     public static class KuznechikCryptoProtocolUtils
     {
 
-        // Сложение_по_модулю_2
-        public static byte[] KuzX(byte[] input1, byte[] input2) // Преобразование Х (сложение 2х веторов по модулю 2)
+        /// <summary>
+        /// Сложение по модулю 2
+        /// </summary>
+        /// <param name="input1"></param>
+        /// <param name="input2"></param>
+        /// <returns></returns>
+        public static byte[] X(byte[] input1, byte[] input2)
         {
             byte[] output = new byte[16];
             for (int i = 0; i < 16; i++)
@@ -14,18 +19,29 @@
             return output;
         }
 
-        //Генерация_раундовых_ключей
-        public static void KuzF(byte[] input1, byte[] input2, ref byte[] output1, ref byte[] output2, byte[] round_C)
+        /// <summary>
+        /// Генерация раундовых ключей
+        /// </summary>
+        /// <param name="input1"></param>
+        /// <param name="input2"></param>
+        /// <param name="output1"></param>
+        /// <param name="output2"></param>
+        /// <param name="round_C"></param>
+        public static void F(byte[] input1, byte[] input2, ref byte[] output1, ref byte[] output2, byte[] round_C)
         {
-            byte[] state = KuzX(input1, round_C);
-            state = KuzS(state);
+            byte[] state = X(input1, round_C);
+            state = S(state);
             state = KuzL(state);
-            output1 = KuzX(state, input2);
+            output1 = X(state, input2);
             output2 = input1;
         }
 
-        //Нелинейное_преобразование_(Операция_S)
-        public static byte[] KuzS(byte[] input) // Прямое нелинейное преобразование S
+        /// <summary>
+        /// Нелинейное преобразование (Операция S)
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static byte[] S(byte[] input) // Прямое нелинейное преобразование S
         {
             byte[] output = new byte[16];
             for (int i = 0; i < 16; i++)
@@ -35,7 +51,12 @@
             return output;
         }
 
-        public static byte[] KuzSReverse(byte[] input) // Обратное нелинейное преобразование S
+        /// <summary>
+        /// Обратное нелинейное преобразование S
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static byte[] SReverse(byte[] input) 
         {
             byte[] output = new byte[16];
             for (int i = 0; i < 16; i++)
@@ -45,8 +66,13 @@
             return output;
         }
 
-        //Линейное_преобразование_(Операция_L)
-        public static byte KuzMulInGF(byte a, byte b)
+        /// <summary>
+        /// Линейное преобразование (Операция L)
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static byte MulInGF(byte a, byte b)
         {
             byte p = 0;
             byte counter;
@@ -64,15 +90,13 @@
             return p;
         }
 
-        public static byte[] LVec = [148, 32, 133, 16, 194, 192, 1, 251, 1, 192, 194, 16, 133, 32, 148, 1];
-
         public static byte[] KuzR(byte[] input)
         {
             byte a_15 = 0;
             byte[] state = new byte[16];
             for (int i = 0; i <= 15; i++)
             {
-                a_15 ^= KuzMulInGF(input[i], LVec[i]);
+                a_15 ^= MulInGF(input[i], KuznechikCryptoProtocolConstants.LVec[i]);
             }
             for (int i = 15; i > 0; i--)
             {
@@ -92,7 +116,7 @@
             return state;
         }
 
-        public static byte[] KuzRReverse(byte[] input)
+        public static byte[] RReverse(byte[] input)
         {
             byte a_15 = input[0];
             byte[] state = new byte[16];
@@ -102,18 +126,18 @@
             }
             for (int i = 15; i >= 0; i--)
             {
-                a_15 ^= KuzMulInGF(state[i], LVec[i]);
+                a_15 ^= MulInGF(state[i], KuznechikCryptoProtocolConstants.LVec[i]);
             }
             state[15] = a_15;
             return state;
         }
 
-        public static byte[] KuzLReverse(byte[] input)
+        public static byte[] LReverse(byte[] input)
         {
             byte[] state = input;
             for (int i = 0; i < 16; i++)
             {
-                state = KuzRReverse(state);
+                state = RReverse(state);
             }
             return state;
         }
