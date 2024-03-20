@@ -1,6 +1,4 @@
-﻿using KuznechikCryptoProtocol.alghoritm;
-
-namespace KuznechikCryptoProtocol
+﻿namespace KuznechikCryptoProtocol
 {
     internal class Program
     {

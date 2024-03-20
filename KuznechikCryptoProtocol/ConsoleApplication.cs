@@ -1,9 +1,4 @@
 ﻿using KuznechikCryptoProtocol.alghoritm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KuznechikCryptoProtocol
 {
@@ -46,34 +41,40 @@ namespace KuznechikCryptoProtocol
 
             double fileSize = new FileInfo(bigFileFilePath).Length;
             double fileSizeMb = Math.Round(fileSize / 1024 / 1024, 2);
-            Console.WriteLine($"Размер файла: { fileSizeMb } Мб");
-
-            Console.WriteLine("Начало обычного шифрования без модификаций. " +
-                "Длительный процесс, придется подождать...");
-            DateTime start1 = DateTime.Now;
-            var encriptedData = kuznyechikCryptor.Encript(File.ReadAllBytes(bigFileFilePath), key);
-            DateTime end1 = DateTime.Now;
-            Console.WriteLine($"Время начала шифрования: {start1}. \n" +
-                $"Время начала шифрования: {end1}. \n" +
-                $"Общее время: {(end1-start1).TotalSeconds} сек. \n" +
-                $"Скорость: {fileSizeMb / (end1 - start1).TotalSeconds} Мб/сек\n");
-            using (FileStream fileStream = new FileStream(encryptedBigFileName, FileMode.OpenOrCreate))
-            {
-                fileStream.Write(encriptedData);
-            }
-            Console.WriteLine("Зашифрованный файл: " + encryptedBigFileName);
-
-            var decriptedData = kuznyechikCryptor.Decript(encriptedData, key);
-            using (FileStream fileStream = new FileStream(decryptedBigFileName, FileMode.OpenOrCreate))
-            {
-                fileStream.Write(decriptedData);
-            }
-            Console.WriteLine("Расшифрованный файл: " + decryptedBigFileName);
-
+            Console.WriteLine($"Размер файла: {fileSizeMb} Мб");
+            Task2SimpleMode(key, fileSizeMb);
 
             Console.WriteLine("Нажмите дважды Enter для продолжения...");
             Console.ReadLine();
             Console.ReadLine();
+        }
+
+        private static void Task2SimpleMode(byte[] key, double fileSizeMb)
+        {
+            Console.WriteLine("Начало обычного шифрования без модификаций. " +
+                            "Длительный процесс, придется подождать...");
+            DateTime start = DateTime.Now;
+            var encriptedData = kuznyechikCryptor.Encript(File.ReadAllBytes(bigFileFilePath), key);
+            DateTime end = DateTime.Now;
+            Console.WriteLine($"Время начала шифрования: {start}. \n" +
+                $"Время начала шифрования: {end}. \n" +
+                $"Общее время: {(end - start).TotalSeconds} сек. \n" +
+                $"Скорость: {fileSizeMb / (end - start).TotalSeconds} Мб/сек\n");
+            var simpleEncryptedBigFileName = "simple_" + encryptedBigFileName;
+            using (FileStream fileStream = new FileStream(simpleEncryptedBigFileName, FileMode.OpenOrCreate))
+            {
+                fileStream.Write(encriptedData);
+            }
+            Console.WriteLine("Зашифрованный файл: " + simpleEncryptedBigFileName);
+
+            var simpleDecriptedBigFileName = "simple_" + decryptedBigFileName;
+            var decriptedData = kuznyechikCryptor.Decript(encriptedData, key);
+            using (FileStream fileStream = new FileStream(simpleDecriptedBigFileName, FileMode.OpenOrCreate))
+            {
+                fileStream.Write(decriptedData);
+            }
+            Console.WriteLine("Расшифрованный файл: " + simpleDecriptedBigFileName);
+            Console.WriteLine("---------------------");
         }
 
         public static void Run()
@@ -82,8 +83,8 @@ namespace KuznechikCryptoProtocol
             while (selectedItem != "3")
             {
                 PrintMenu();
-                //selectedItem = Console.ReadLine();
-                selectedItem = "2";
+                selectedItem = Console.ReadLine();
+                //selectedItem = "2";
                 try 
                 {
                     switch (selectedItem)
