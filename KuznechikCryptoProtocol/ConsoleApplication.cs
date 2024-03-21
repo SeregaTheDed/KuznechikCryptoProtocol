@@ -4,7 +4,7 @@ namespace KuznechikCryptoProtocol
 {
     internal static class ConsoleApplication
     {
-        private static KuznyechikCryptor kuznyechikCryptor = new KuznyechikCryptor();
+        private static KuznyechikCryptor kuznyechikCryptor = new KuznyechikCryptor(new KuznechikCryptoProtocolOperations());
 
         private const string bigFileFilePath = "./Data/BigFile.mp4";
         private const string dataFilePath = "./Data/data.txt";
@@ -14,7 +14,7 @@ namespace KuznechikCryptoProtocol
         private const string decryptedBigFileName = "DecryptedBigFile.mp4";
         private const string resultPdfFileName = "resultPDF.pdf";
         private const string GOST_KEY = "8899aabbccddeeff0011223344556677fedcba98765432100123456789abcdef";
-        
+
 
         private static void Task1()
         {
@@ -85,29 +85,29 @@ namespace KuznechikCryptoProtocol
                 PrintMenu();
                 selectedItem = Console.ReadLine();
                 //selectedItem = "2";
-                try 
+                try
                 {
                     switch (selectedItem)
                     {
                         case "1": Task1(); break;
                         case "2": Task2(); break;
                         case "3": return;
-                        default: 
-                            { 
+                        default:
+                            {
                                 Console.WriteLine("Выберите пункт меню!");
                                 Console.WriteLine("Нажмите Enter для продолжения");
                                 Console.ReadLine();
-                                break; 
+                                break;
                             }
                     }
-                } 
+                }
                 catch (IOException exception)
                 {
                     Console.WriteLine("Проверьте путь до файла или права на него: " + exception.Message);
                     Console.WriteLine("Нажмите Enter для продолжения");
                     Console.ReadLine();
                 }
-                
+
             }
 
         }

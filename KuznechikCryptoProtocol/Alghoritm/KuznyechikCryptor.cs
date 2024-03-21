@@ -4,7 +4,13 @@
     {
         private byte[][] iterC = new byte[32][]; // массив итерационных констант
         private byte[][] iterK = new byte[10][]; // массив итерационных ключей
-        private KuznechikCryptoProtocolOperations operations = new KuznechikCryptoProtocolOperations();
+        private readonly KuznechikCryptoProtocolOperations operations;
+
+        public KuznyechikCryptor(KuznechikCryptoProtocolOperations operations)
+        {
+            this.operations = operations;
+        }
+
         public byte[] Encript(byte[] file, byte[] masterKey)
         {
             KeyGen(masterKey);
@@ -22,9 +28,9 @@
                 NumberOfNull = NumOfBlocks * 16 - file.Length;
                 Array.Resize(ref OriginText, OriginText.Length + NumberOfNull);
                 Array.Resize(ref encrText, OriginText.Length + NumberOfNull);
-                if (NumberOfNull == 1) 
-                { 
-                    OriginText[OriginText.Length - 1] = 0x80; 
+                if (NumberOfNull == 1)
+                {
+                    OriginText[OriginText.Length - 1] = 0x80;
                 }
                 else
                 {

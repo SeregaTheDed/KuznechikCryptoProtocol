@@ -56,7 +56,7 @@
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public byte[] SReverse(byte[] input) 
+        public byte[] SReverse(byte[] input)
         {
             byte[] output = new byte[16];
             for (int i = 0; i < 16; i++)
