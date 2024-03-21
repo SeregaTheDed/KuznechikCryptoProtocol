@@ -4,6 +4,7 @@
     {
         private byte[][] iterC = new byte[32][]; // массив итерационных констант
         private byte[][] iterK = new byte[10][]; // массив итерационных ключей
+        private KuznechikCryptoProtocolOperations operations = new KuznechikCryptoProtocolOperations();
         public byte[] Encript(byte[] file, byte[] masterKey)
         {
             KeyGen(masterKey);
@@ -51,13 +52,13 @@
 
                 for (int j = 0; j < 9; j++)
                 {
-                    block = KuznechikCryptoProtocolUtils.X(block, iterK[j]);
-                    block = KuznechikCryptoProtocolUtils.S(block);
-                    block = KuznechikCryptoProtocolUtils.L(block);
+                    block = operations.X(block, iterK[j]);
+                    block = operations.S(block);
+                    block = operations.L(block);
 
                 }
 
-                block = KuznechikCryptoProtocolUtils.X(block, iterK[9]);
+                block = operations.X(block, iterK[9]);
                 for (int j = 0; j < 16; j++)
                 {
                     encrText[i * 16 + j] = block[j];
@@ -80,13 +81,13 @@
                     block[j] = originText[i * 16 + j];
                 }
 
-                block = KuznechikCryptoProtocolUtils.X(block, iterK[9]);
+                block = operations.X(block, iterK[9]);
 
                 for (int j = 8; j >= 0; j--)
                 {
-                    block = KuznechikCryptoProtocolUtils.LReverse(block);
-                    block = KuznechikCryptoProtocolUtils.SReverse(block);
-                    block = KuznechikCryptoProtocolUtils.X(block, iterK[j]);
+                    block = operations.LReverse(block);
+                    block = operations.SReverse(block);
+                    block = operations.X(block, iterK[j]);
 
                 }
 
@@ -104,7 +105,7 @@
             for (int i = 0; i < 32; i++)
             {
                 iterNum[i] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Convert.ToByte(i + 1)];
-                iterC[i] = KuznechikCryptoProtocolUtils.L(iterNum[i]);
+                iterC[i] = operations.L(iterNum[i]);
             }
 
             //Генерация первых 2-х ключей
@@ -127,14 +128,14 @@
             //Генерация остальных ключей
             for (int i = 0; i < 4; i++)
             {
-                KuznechikCryptoProtocolUtils.F(A, B, ref C, ref D, iterC[0 + 8 * i]);
-                KuznechikCryptoProtocolUtils.F(C, D, ref A, ref B, iterC[1 + 8 * i]);
-                KuznechikCryptoProtocolUtils.F(A, B, ref C, ref D, iterC[2 + 8 * i]);
-                KuznechikCryptoProtocolUtils.F(C, D, ref A, ref B, iterC[3 + 8 * i]);
-                KuznechikCryptoProtocolUtils.F(A, B, ref C, ref D, iterC[4 + 8 * i]);
-                KuznechikCryptoProtocolUtils.F(C, D, ref A, ref B, iterC[5 + 8 * i]);
-                KuznechikCryptoProtocolUtils.F(A, B, ref C, ref D, iterC[6 + 8 * i]);
-                KuznechikCryptoProtocolUtils.F(C, D, ref A, ref B, iterC[7 + 8 * i]);
+                operations.F(A, B, ref C, ref D, iterC[0 + 8 * i]);
+                operations.F(C, D, ref A, ref B, iterC[1 + 8 * i]);
+                operations.F(A, B, ref C, ref D, iterC[2 + 8 * i]);
+                operations.F(C, D, ref A, ref B, iterC[3 + 8 * i]);
+                operations.F(A, B, ref C, ref D, iterC[4 + 8 * i]);
+                operations.F(C, D, ref A, ref B, iterC[5 + 8 * i]);
+                operations.F(A, B, ref C, ref D, iterC[6 + 8 * i]);
+                operations.F(C, D, ref A, ref B, iterC[7 + 8 * i]);
                 iterK[2 * i + 2] = A;
                 iterK[2 * i + 3] = B;
             }

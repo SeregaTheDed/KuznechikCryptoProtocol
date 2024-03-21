@@ -57,7 +57,7 @@ namespace KuznechikCryptoProtocol
             var encriptedData = kuznyechikCryptor.Encript(File.ReadAllBytes(bigFileFilePath), key);
             DateTime end = DateTime.Now;
             Console.WriteLine($"Время начала шифрования: {start}. \n" +
-                $"Время начала шифрования: {end}. \n" +
+                $"Время конца шифрования: {end}. \n" +
                 $"Общее время: {(end - start).TotalSeconds} сек. \n" +
                 $"Скорость: {fileSizeMb / (end - start).TotalSeconds} Мб/сек\n");
             var simpleEncryptedBigFileName = "simple_" + encryptedBigFileName;

@@ -1,6 +1,6 @@
 ﻿namespace KuznechikCryptoProtocol.alghoritm
 {
-    public static class KuznechikCryptoProtocolUtils
+    public class KuznechikCryptoProtocolOperations
     {
 
         /// <summary>
@@ -9,7 +9,7 @@
         /// <param name="input1"></param>
         /// <param name="input2"></param>
         /// <returns></returns>
-        public static byte[] X(byte[] input1, byte[] input2)
+        public byte[] X(byte[] input1, byte[] input2)
         {
             byte[] output = new byte[16];
             for (int i = 0; i < 16; i++)
@@ -27,7 +27,7 @@
         /// <param name="output1"></param>
         /// <param name="output2"></param>
         /// <param name="round_C"></param>
-        public static void F(byte[] input1, byte[] input2, ref byte[] output1, ref byte[] output2, byte[] round_C)
+        public void F(byte[] input1, byte[] input2, ref byte[] output1, ref byte[] output2, byte[] round_C)
         {
             byte[] state = X(input1, round_C);
             state = S(state);
@@ -41,7 +41,7 @@
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public static byte[] S(byte[] input) // Прямое нелинейное преобразование S
+        public byte[] S(byte[] input) // Прямое нелинейное преобразование S
         {
             byte[] output = new byte[16];
             for (int i = 0; i < 16; i++)
@@ -56,7 +56,7 @@
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public static byte[] SReverse(byte[] input) 
+        public byte[] SReverse(byte[] input) 
         {
             byte[] output = new byte[16];
             for (int i = 0; i < 16; i++)
@@ -72,7 +72,7 @@
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static byte MulInGF(byte a, byte b)
+        public byte MulInGF(byte a, byte b)
         {
             byte p = 0;
             byte counter;
@@ -90,7 +90,7 @@
             return p;
         }
 
-        public static byte[] R(byte[] input)
+        public byte[] R(byte[] input)
         {
             byte a_15 = 0;
             byte[] state = new byte[16];
@@ -106,7 +106,7 @@
             return state;
         }
 
-        public static byte[] L(byte[] input)
+        public byte[] L(byte[] input)
         {
             byte[] state = input;
             for (int i = 0; i < 16; i++)
@@ -116,7 +116,7 @@
             return state;
         }
 
-        public static byte[] RReverse(byte[] input)
+        public byte[] RReverse(byte[] input)
         {
             byte a_15 = input[0];
             byte[] state = new byte[16];
@@ -132,7 +132,7 @@
             return state;
         }
 
-        public static byte[] LReverse(byte[] input)
+        public byte[] LReverse(byte[] input)
         {
             byte[] state = input;
             for (int i = 0; i < 16; i++)
