@@ -1,4 +1,4 @@
-﻿using KuznechikCryptoProtocol.alghoritm;
+﻿using KuznechikCryptoProtocol.KuznechikCryptoProtocol;
 
 namespace KuznechikCryptoProtocol
 {

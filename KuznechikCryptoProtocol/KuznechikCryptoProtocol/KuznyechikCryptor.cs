@@ -1,4 +1,4 @@
-﻿namespace KuznechikCryptoProtocol.alghoritm
+﻿namespace KuznechikCryptoProtocol.KuznechikCryptoProtocol
 {
     internal class KuznyechikCryptor
     {
