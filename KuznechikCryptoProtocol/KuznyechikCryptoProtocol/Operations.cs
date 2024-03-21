@@ -1,4 +1,4 @@
-﻿namespace KuznechikCryptoProtocol.KuznechikCryptoProtocol
+﻿namespace KuznyechikCryptoProtocol.KuznyechikCryptoProtocol
 {
     public class Operations
     {

@@ -1,6 +1,4 @@
-﻿using KuznechikCryptoProtocol.KuznechikCryptoProtocol;
-
-namespace KuznechikCryptoProtocol.Alghoritm
+﻿namespace KuznyechikCryptoProtocol.KuznyechikCryptoProtocol
 {
     internal class OperationsWithMatrix : Operations
     {

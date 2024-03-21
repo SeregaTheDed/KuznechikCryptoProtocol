@@ -1,8 +1,7 @@
-﻿using KuznechikCryptoProtocol.Alghoritm;
-using KuznechikCryptoProtocol.KuznechikCryptoProtocol;
+﻿using KuznyechikCryptoProtocol.KuznyechikCryptoProtocol;
 using System.Text.Json;
 
-namespace KuznechikCryptoProtocol
+namespace KuznyechikCryptoProtocol
 {
     internal static class ConsoleApplication
     {
@@ -55,6 +54,7 @@ namespace KuznechikCryptoProtocol
             double fileSizeMb = Math.Round(fileSize / 1024 / 1024, 2);
             Console.WriteLine($"Размер файла: {fileSizeMb} Мб");
             Task2WithCryptor(kuznyechikCryptor, key, fileSizeMb);
+            Task2WithCryptor(kuznyechikCryptorWithMatrix, key, fileSizeMb);
 
             Console.WriteLine("Нажмите дважды Enter для продолжения...");
             Console.ReadLine();
@@ -63,23 +63,25 @@ namespace KuznechikCryptoProtocol
 
         private static void Task2WithCryptor(KuznyechikCryptor kuznyechikCryptor, byte[] key, double fileSizeMb)
         {
-            Console.WriteLine("Начало обычного шифрования без модификаций. " +
-                            "Длительный процесс, придется подождать...");
+            Console.WriteLine("Начало шифрования. " +
+                            "Процесс может быть долгим, придется подождать...");
             DateTime start = DateTime.Now;
             var encriptedData = kuznyechikCryptor.Encript(File.ReadAllBytes(bigFileFilePath), key);
             DateTime end = DateTime.Now;
-            Console.WriteLine($"Время начала шифрования: {start}. \n" +
+            Console.WriteLine($"Класс: {kuznyechikCryptor.GetType().Name} \n" +
+                $"Время начала шифрования: {start}. \n" +
                 $"Время конца шифрования: {end}. \n" +
                 $"Общее время: {(end - start).TotalSeconds} сек. \n" +
                 $"Скорость: {fileSizeMb / (end - start).TotalSeconds} Мб/сек\n");
-            var simpleEncryptedBigFileName = "simple_" + encryptedBigFileName;
+            string prefix = kuznyechikCryptor.GetType().Name + "_";
+            var simpleEncryptedBigFileName = prefix + encryptedBigFileName;
             using (FileStream fileStream = new FileStream(simpleEncryptedBigFileName, FileMode.OpenOrCreate))
             {
                 fileStream.Write(encriptedData);
             }
             Console.WriteLine("Зашифрованный файл: " + simpleEncryptedBigFileName);
 
-            var simpleDecriptedBigFileName = "simple_" + decryptedBigFileName;
+            var simpleDecriptedBigFileName = prefix + decryptedBigFileName;
             var decriptedData = kuznyechikCryptor.Decript(encriptedData, key);
             using (FileStream fileStream = new FileStream(simpleDecriptedBigFileName, FileMode.OpenOrCreate))
             {
