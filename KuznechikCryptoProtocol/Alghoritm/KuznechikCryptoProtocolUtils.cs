@@ -31,7 +31,7 @@
         {
             byte[] state = X(input1, round_C);
             state = S(state);
-            state = KuzL(state);
+            state = L(state);
             output1 = X(state, input2);
             output2 = input1;
         }
@@ -90,7 +90,7 @@
             return p;
         }
 
-        public static byte[] KuzR(byte[] input)
+        public static byte[] R(byte[] input)
         {
             byte a_15 = 0;
             byte[] state = new byte[16];
@@ -106,12 +106,12 @@
             return state;
         }
 
-        public static byte[] KuzL(byte[] input)
+        public static byte[] L(byte[] input)
         {
             byte[] state = input;
             for (int i = 0; i < 16; i++)
             {
-                state = KuzR(state);
+                state = R(state);
             }
             return state;
         }

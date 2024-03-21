@@ -53,7 +53,7 @@
                 {
                     block = KuznechikCryptoProtocolUtils.X(block, iterK[j]);
                     block = KuznechikCryptoProtocolUtils.S(block);
-                    block = KuznechikCryptoProtocolUtils.KuzL(block);
+                    block = KuznechikCryptoProtocolUtils.L(block);
 
                 }
 
@@ -104,7 +104,7 @@
             for (int i = 0; i < 32; i++)
             {
                 iterNum[i] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, Convert.ToByte(i + 1)];
-                iterC[i] = KuznechikCryptoProtocolUtils.KuzL(iterNum[i]);
+                iterC[i] = KuznechikCryptoProtocolUtils.L(iterNum[i]);
             }
 
             //Генерация первых 2-х ключей
