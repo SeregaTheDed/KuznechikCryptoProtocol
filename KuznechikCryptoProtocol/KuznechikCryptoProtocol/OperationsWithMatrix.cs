@@ -2,12 +2,12 @@
 
 namespace KuznechikCryptoProtocol.Alghoritm
 {
-    internal class KCPOperationsWithMatrix : KCPOperations
+    internal class OperationsWithMatrix : Operations
     {
         private readonly byte[][][] LookupTableOfTransformationL;
-        private readonly int BlockSize = KCPConstants.BlockSize;
+        private readonly int BlockSize = Constants.BlockSize;
 
-        public KCPOperationsWithMatrix(byte[][][] lookupTableOfTransformationL)
+        public OperationsWithMatrix(byte[][][] lookupTableOfTransformationL)
         {
             LookupTableOfTransformationL = lookupTableOfTransformationL;
         }

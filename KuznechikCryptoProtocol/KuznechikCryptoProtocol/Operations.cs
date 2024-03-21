@@ -1,6 +1,6 @@
 ﻿namespace KuznechikCryptoProtocol.alghoritm
 {
-    public class KCPOperations
+    public class Operations
     {
 
         /// <summary>
@@ -46,7 +46,7 @@
             byte[] output = new byte[16];
             for (int i = 0; i < 16; i++)
             {
-                output[i] = KCPConstants.Pi[input[i]];
+                output[i] = Constants.Pi[input[i]];
             }
             return output;
         }
@@ -61,7 +61,7 @@
             byte[] output = new byte[16];
             for (int i = 0; i < 16; i++)
             {
-                output[i] = KCPConstants.Pi_Reverse[input[i]];
+                output[i] = Constants.Pi_Reverse[input[i]];
             }
             return output;
         }
@@ -96,7 +96,7 @@
             byte[] state = new byte[16];
             for (int i = 0; i <= 15; i++)
             {
-                a_15 ^= MulInGF(input[i], KCPConstants.LVec[i]);
+                a_15 ^= MulInGF(input[i], Constants.LVec[i]);
             }
             for (int i = 15; i > 0; i--)
             {
@@ -126,7 +126,7 @@
             }
             for (int i = 15; i >= 0; i--)
             {
-                a_15 ^= MulInGF(state[i], KCPConstants.LVec[i]);
+                a_15 ^= MulInGF(state[i], Constants.LVec[i]);
             }
             state[15] = a_15;
             return state;
