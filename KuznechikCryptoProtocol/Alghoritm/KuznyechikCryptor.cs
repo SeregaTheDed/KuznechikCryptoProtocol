@@ -4,9 +4,9 @@
     {
         private byte[][] iterC = new byte[32][]; // массив итерационных констант
         private byte[][] iterK = new byte[10][]; // массив итерационных ключей
-        private readonly KuznechikCryptoProtocolOperations operations;
+        private readonly KCPOperations operations;
 
-        public KuznyechikCryptor(KuznechikCryptoProtocolOperations operations)
+        public KuznyechikCryptor(KCPOperations operations)
         {
             this.operations = operations;
         }

@@ -1,6 +1,6 @@
 ﻿namespace KuznechikCryptoProtocol.alghoritm
 {
-    internal static class KuznechikCryptoProtocolConstants
+    internal static class KCPConstants
     {
 
         public static readonly int BlockSize = 16;

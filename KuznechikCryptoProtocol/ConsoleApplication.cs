@@ -4,7 +4,7 @@ namespace KuznechikCryptoProtocol
 {
     internal static class ConsoleApplication
     {
-        private static KuznyechikCryptor kuznyechikCryptor = new KuznyechikCryptor(new KuznechikCryptoProtocolOperations());
+        private static KuznyechikCryptor kuznyechikCryptor = new KuznyechikCryptor(new KCPOperations());
 
         private const string bigFileFilePath = "./Data/BigFile.mp4";
         private const string dataFilePath = "./Data/data.txt";

@@ -1,6 +1,6 @@
 ﻿namespace KuznechikCryptoProtocol.alghoritm
 {
-    public class KuznechikCryptoProtocolOperations
+    public class KCPOperations
     {
 
         /// <summary>
@@ -46,7 +46,7 @@
             byte[] output = new byte[16];
             for (int i = 0; i < 16; i++)
             {
-                output[i] = KuznechikCryptoProtocolConstants.Pi[input[i]];
+                output[i] = KCPConstants.Pi[input[i]];
             }
             return output;
         }
@@ -61,7 +61,7 @@
             byte[] output = new byte[16];
             for (int i = 0; i < 16; i++)
             {
-                output[i] = KuznechikCryptoProtocolConstants.Pi_Reverse[input[i]];
+                output[i] = KCPConstants.Pi_Reverse[input[i]];
             }
             return output;
         }
@@ -96,7 +96,7 @@
             byte[] state = new byte[16];
             for (int i = 0; i <= 15; i++)
             {
-                a_15 ^= MulInGF(input[i], KuznechikCryptoProtocolConstants.LVec[i]);
+                a_15 ^= MulInGF(input[i], KCPConstants.LVec[i]);
             }
             for (int i = 15; i > 0; i--)
             {
@@ -106,7 +106,7 @@
             return state;
         }
 
-        public byte[] L(byte[] input)
+        public virtual byte[] L(byte[] input)
         {
             byte[] state = input;
             for (int i = 0; i < 16; i++)
@@ -116,7 +116,7 @@
             return state;
         }
 
-        public byte[] RReverse(byte[] input)
+        public virtual byte[] RReverse(byte[] input)
         {
             byte a_15 = input[0];
             byte[] state = new byte[16];
@@ -126,7 +126,7 @@
             }
             for (int i = 15; i >= 0; i--)
             {
-                a_15 ^= MulInGF(state[i], KuznechikCryptoProtocolConstants.LVec[i]);
+                a_15 ^= MulInGF(state[i], KCPConstants.LVec[i]);
             }
             state[15] = a_15;
             return state;
