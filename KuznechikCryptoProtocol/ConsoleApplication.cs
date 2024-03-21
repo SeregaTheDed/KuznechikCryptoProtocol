@@ -1,10 +1,22 @@
-﻿using KuznechikCryptoProtocol.KuznechikCryptoProtocol;
+﻿using KuznechikCryptoProtocol.Alghoritm;
+using KuznechikCryptoProtocol.KuznechikCryptoProtocol;
+using System.Text.Json;
 
 namespace KuznechikCryptoProtocol
 {
     internal static class ConsoleApplication
     {
-        private static KuznyechikCryptor kuznyechikCryptor = new KuznyechikCryptor(new Operations());
+        private static KuznyechikCryptor kuznyechikCryptor;
+        private static KuznyechikCryptor kuznyechikCryptorWithMatrix;
+        static ConsoleApplication()
+        {
+            kuznyechikCryptor = new KuznyechikCryptor(new Operations());
+
+            byte[][][] LookupTableOfTransformationL = 
+                JsonSerializer.Deserialize<byte[][][]>(File.ReadAllText("./Data/TransitionMatrixL.json"));
+            OperationsWithMatrix operationsWithMatrix = new OperationsWithMatrix(LookupTableOfTransformationL);
+            kuznyechikCryptorWithMatrix = new KuznyechikCryptor(operationsWithMatrix);
+        }
 
         private const string bigFileFilePath = "./Data/BigFile.mp4";
         private const string dataFilePath = "./Data/data.txt";
@@ -42,14 +54,14 @@ namespace KuznechikCryptoProtocol
             double fileSize = new FileInfo(bigFileFilePath).Length;
             double fileSizeMb = Math.Round(fileSize / 1024 / 1024, 2);
             Console.WriteLine($"Размер файла: {fileSizeMb} Мб");
-            Task2SimpleMode(key, fileSizeMb);
+            Task2WithCryptor(kuznyechikCryptor, key, fileSizeMb);
 
             Console.WriteLine("Нажмите дважды Enter для продолжения...");
             Console.ReadLine();
             Console.ReadLine();
         }
 
-        private static void Task2SimpleMode(byte[] key, double fileSizeMb)
+        private static void Task2WithCryptor(KuznyechikCryptor kuznyechikCryptor, byte[] key, double fileSizeMb)
         {
             Console.WriteLine("Начало обычного шифрования без модификаций. " +
                             "Длительный процесс, придется подождать...");

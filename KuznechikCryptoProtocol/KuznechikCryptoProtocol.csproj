@@ -11,6 +11,7 @@
     <None Remove="Data\BigFile.mp4" />
     <None Remove="Data\data.txt" />
     <None Remove="Data\key.txt" />
+    <None Remove="Data\TransitionMatrixL.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +22,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Data\key.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\TransitionMatrixL.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
