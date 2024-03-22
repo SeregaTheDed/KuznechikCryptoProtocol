@@ -146,5 +146,10 @@
                 iterK[2 * i + 3] = B;
             }
         }
+
+        public override string ToString()
+        {
+            return "Кузнечик" + operations.ToString();
+        }
     }
 }

@@ -68,12 +68,13 @@ namespace KuznyechikCryptoProtocol
             DateTime start = DateTime.Now;
             var encriptedData = kuznyechikCryptor.Encript(File.ReadAllBytes(bigFileFilePath), key);
             DateTime end = DateTime.Now;
-            Console.WriteLine($"Класс: {kuznyechikCryptor.GetType().Name} \n" +
+            
+            Console.WriteLine($"Класс: {kuznyechikCryptor} \n" +
                 $"Время начала шифрования: {start}. \n" +
                 $"Время конца шифрования: {end}. \n" +
                 $"Общее время: {(end - start).TotalSeconds} сек. \n" +
                 $"Скорость: {fileSizeMb / (end - start).TotalSeconds} Мб/сек\n");
-            string prefix = kuznyechikCryptor.GetType().Name + "_";
+            string prefix = kuznyechikCryptor + "_";
             var simpleEncryptedBigFileName = prefix + encryptedBigFileName;
             using (FileStream fileStream = new FileStream(simpleEncryptedBigFileName, FileMode.OpenOrCreate))
             {

@@ -36,5 +36,10 @@
             }
             return outputBlock;
         }
+
+        public override string ToString()
+        {
+            return "_с_матрицей_на_L-операции";
+        }
     }
 }
