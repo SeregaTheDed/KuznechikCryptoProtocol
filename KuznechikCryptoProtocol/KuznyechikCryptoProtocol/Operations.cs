@@ -116,7 +116,7 @@
             return state;
         }
 
-        public virtual byte[] RReverse(byte[] input)
+        public byte[] RReverse(byte[] input)
         {
             byte a_15 = input[0];
             byte[] state = new byte[16];
@@ -132,7 +132,7 @@
             return state;
         }
 
-        public byte[] LReverse(byte[] input)
+        public virtual byte[] LReverse(byte[] input)
         {
             byte[] state = input;
             for (int i = 0; i < 16; i++)

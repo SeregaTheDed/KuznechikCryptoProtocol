@@ -23,7 +23,7 @@
             return outputBlock;
         }
 
-        public override byte[] RReverse(byte[] input)
+        public override byte[] LReverse(byte[] input)
         {
             int blockSizeMinusOne = BlockSize - 1;
             byte[] outputBlock = new byte[BlockSize];
