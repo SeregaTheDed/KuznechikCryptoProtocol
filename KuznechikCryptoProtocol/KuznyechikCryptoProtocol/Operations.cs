@@ -67,7 +67,7 @@
         }
 
         /// <summary>
-        /// Линейное преобразование (Операция L)
+        /// Умножение в поле
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -75,9 +75,8 @@
         public byte MulInGF(byte a, byte b)
         {
             byte p = 0;
-            byte counter;
             byte hi_bit_set;
-            for (counter = 0; counter < 8 && a != 0 && b != 0; counter++)
+            for (byte counter = 0; counter < 8 && a != 0 && b != 0; counter++)
             {
                 if ((b & 1) != 0)
                     p ^= a;
@@ -108,38 +107,38 @@
 
         public virtual byte[] L(byte[] input)
         {
-            byte[] state = input;
+            byte[] result = input;
             for (int i = 0; i < 16; i++)
             {
-                state = R(state);
+                result = R(result);
             }
-            return state;
+            return result;
         }
 
         public byte[] RReverse(byte[] input)
         {
-            byte a_15 = input[0];
-            byte[] state = new byte[16];
+            byte sum = input[0];
+            byte[] result = new byte[16];
             for (int i = 0; i < 15; i++)
             {
-                state[i] = input[i + 1];
+                result[i] = input[i + 1];
             }
             for (int i = 15; i >= 0; i--)
             {
-                a_15 ^= MulInGF(state[i], Constants.LVec[i]);
+                sum ^= MulInGF(result[i], Constants.LVec[i]);
             }
-            state[15] = a_15;
-            return state;
+            result[15] = sum;
+            return result;
         }
 
         public virtual byte[] LReverse(byte[] input)
         {
-            byte[] state = input;
+            byte[] result = input;
             for (int i = 0; i < 16; i++)
             {
-                state = RReverse(state);
+                result = RReverse(result);
             }
-            return state;
+            return result;
         }
 
         public override string ToString()
